@@ -30,13 +30,14 @@
 | user                | references | null: false, foreign_key: true |
 
 ### Association
-- belongs_to :users
-- has_one :purchase_records
-- belongs_to :category_id
-- belongs_to :situation_id
-- belongs_to :delivery_charge_id
-- belongs_to :region_id
-- belongs_to :shipment_id
+- belongs_to :user
+- has_one :purchase_record
+- belongs_to :category
+- belongs_to :situation
+- belongs_to :delivery_charge
+- belongs_to :region
+- belongs_to :shipment
+
 
 
 ## purchase_recordsテーブル
@@ -47,14 +48,14 @@
 | user                | references | null: false, foreign_key: true |
 
 ### Association
-- belongs_to :users
-- belongs_to :items
-- belongs_to :addresses
+- belongs_to :user
+- belongs_to :item
+- has_one :address
 
 ## addressesテーブル
 | Column              | Type       | Options                        |
 | ------              | ---------- | ------------------------------ |
-| post_code           | integer    | null: false                    |
+| post_code           | string     | null: false                    |
 | region_id           | integer    | null: false                    |
 | city                | string     | null: false                    |
 | street              | string     | null: false                    |
@@ -63,5 +64,6 @@
 | purchase_record     | references | null: false, foreign_key: true |
 
 ### Association
-- belongs_to :purchase_records
-- belongs_to : region_id
+- belongs_to :purchase_record
+- belongs_to :region
+
