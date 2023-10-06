@@ -12,19 +12,19 @@
 | birthdate           | date       | null: false                    |
 
 ### Association
-- has_many :item
-- has_many :purchase_record
+- has_many :items
+- has_many :purchase_records
 
 ## itemsテーブル
 
 | Column              | Type       | Options                        |
 | ------              | ---------- | ------------------------------ |
 | item_name           | string     | null: false                    |
-| category            | string     | null: false                    |
-| situation           | integer    | null: false                    |
-| delivery_charge     | integer    | null: false                    |
-| region              | string     | null: false                    |
-| shipment            | integer    | null: false                    |
+| category_id         | integer    | null: false                    |
+| situation_id        | integer    | null: false                    |
+| delivery_charge_id  | integer    | null: false                    |
+| region_id           | integer    | null: false                    |
+| shipment_id         | integer    | null: false                    |
 | price               | integer    | null: false                    |
 | content             | text       | null: false                    |
 | user                | references | null: false, foreign_key: true |
@@ -55,7 +55,7 @@
 | Column              | Type       | Options                        |
 | ------              | ---------- | ------------------------------ |
 | post_code           | string     | null: false                    |
-| region              | string     | null: false                    |
+| region_id           | integer    | null: false                    |
 | city                | string     | null: false                    |
 | street              | string     | null: false                    |
 | building            | string     |                                |
