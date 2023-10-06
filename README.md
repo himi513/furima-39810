@@ -39,6 +39,7 @@
 - belongs_to :shipment
 
 
+
 ## purchase_recordsテーブル
 
 | Column              | Type       | Options                        |
@@ -65,3 +66,4 @@
 ### Association
 - belongs_to :purchase_record
 - belongs_to :region
+
