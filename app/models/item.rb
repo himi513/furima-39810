@@ -8,6 +8,13 @@ class Item < ApplicationRecord
   belongs_to :region
   belongs_to :shipment
 
+  validates :item_name, :content, presence: true
+  validates :category_id, numericality: { other_than: 1 , message: "can't be blank"}
+  validates :situation_id, numericality: { other_than: 1 , message: "can't be blank"}
+  validates :delivery_charge_id, numericality: { other_than: 1 , message: "can't be blank"}
+  validates :region_id, numericality: { other_than: 1 , message: "can't be blank"}
+  validates :shipment_id, numericality: { other_than: 1 , message: "can't be blank"}
+
   belongs_to :user
 
 end
