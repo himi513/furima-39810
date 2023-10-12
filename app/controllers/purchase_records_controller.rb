@@ -1,12 +1,14 @@
 class PurchaseRecordsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :create]
   before_action :set_item, only: [:index, :create]
+  before_action :move_to_index, only: [:index, :create]
+  before_action :authenticate_user!, except: [:index, :create]
+  before_action :pay_key, only: [:index, :create]
 
   def index
-    gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
     @purchase_record_address = PurchaseRecordAddress.new
-    if current_user == @item.user
-      redirect_to root_path
+    return unless current_user == @item.user || @item.purchase_record
+    
+    redirect_to root_path
     end
   end
 
@@ -17,7 +19,6 @@ class PurchaseRecordsController < ApplicationController
       @purchase_record_address.save
       redirect_to root_path
     else
-      gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
       render :index, status: :unprocessable_entity
     end
   end
@@ -29,11 +30,23 @@ class PurchaseRecordsController < ApplicationController
   end
 
   def set_item
-    @item = Item.find(params[:item_id])
+    item_id = params[:item_id]
+    @item = Item.find(item_id)
+  end
+
+  def move_to_index
+    return if user_signed_in?
+    
+    redirect_to root_path
+    end
+  end
+
+  def pay_key
+    gon.public_key = ENV['PAYJP_PUBLIC_KEY']
   end
 
   def pay_item
-    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY']
     Payjp::Charge.create(
       amount: @item.price,
       card: purchase_record_params[:token],
