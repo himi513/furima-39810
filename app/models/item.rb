@@ -21,3 +21,4 @@ class Item < ApplicationRecord
     validates :region_id
     validates :shipment_id
   end
+end

@@ -1,7 +1,7 @@
 class PurchaseRecordsController < ApplicationController
   before_action :set_item, only: [:index, :create]
+  before_action :authenticate_user!, only: [:index, :create]
   before_action :move_to_index, only: [:index, :create]
-  before_action :authenticate_user!, except: [:index, :create]
   before_action :pay_key, only: [:index, :create]
 
   def index
@@ -9,7 +9,6 @@ class PurchaseRecordsController < ApplicationController
     return unless current_user == @item.user || @item.purchase_record
     
     redirect_to root_path
-    end
   end
 
   def create
@@ -38,7 +37,6 @@ class PurchaseRecordsController < ApplicationController
     return if user_signed_in?
     
     redirect_to root_path
-    end
   end
 
   def pay_key

@@ -21,15 +21,15 @@ RSpec.describe PurchaseRecordAddress, type: :model do
     end
 
     context '内容に問題がある場合' do
-      it 'post_cordが空だと保存できないこと' do
+      it 'post_codeが空だと保存できないこと' do
         @purchase_record_address.post_code = ''
         @purchase_record_address.valid?
         expect(@purchase_record_address.errors.full_messages).to include("Post code can't be blank")
       end
-      it 'post_cordが半角のハイフンを含んだ正しい形式でないと保存できないこと' do
+      it 'post_codeが半角のハイフンを含んだ正しい形式でないと保存できないこと' do
         @purchase_record_address.post_code = '1234567'
         @purchase_record_address.valid?
-        expect(@purchase_record_address.errors.full_messages).to include('Post code is invalid. Include hyphen(-)')
+        expect(@purchase_record_address.errors.full_messages).to include("Post code is invalid. Include hyphen(-)")
       end
       it 'region_idを選択していないと保存できないこと' do
         @purchase_record_address.region_id = 1
@@ -69,7 +69,7 @@ RSpec.describe PurchaseRecordAddress, type: :model do
       it 'telephoneが全角数字だと保存できないこと' do
         @purchase_record_address.telephone = '０９０１２３４５６７８'
         @purchase_record_address.valid?
-        expect(@purchase_record_address.errors.full_messages).to include('Telephone is invalid')
+        expect(@purchase_record_address.errors.full_messages).to include("Telephone is invalid")
       end
       it 'userが紐付いていないと保存できないこと' do
         @purchase_record_address.user_id = nil
